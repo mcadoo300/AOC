@@ -1,4 +1,4 @@
-input_file = open('input_5.txt','r')
+input_file = open('input_05.txt','r')
 lines = input_file.readlines()
 
 new_section = ["seed-to-soil map:","soil-to-fertilizer map:","fertilizer-to-water map:",

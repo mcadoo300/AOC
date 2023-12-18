@@ -1,17 +1,17 @@
-input_file = open('input_4.txt','r')
+input_file = open('input_04.txt','r')
 lines = input_file.readlines()
-total=0
-for line in lines:
-    line = line[line.index(':')+1:].strip()
-    number_sets = line.split('|')
-    winning_string = number_sets[0].strip()
-    your_string = number_sets[1].strip()
-    winning_numbers = winning_string.split()
-    your_numbers = your_string.split()
-    match_count = 0
-    for num in winning_numbers:
-        if num in your_numbers:
-            match_count+=1
-    if match_count >0:
-        total+= 2**(match_count-1)
-print(total)
+#Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
+copies=[1 for _ in range(len(lines))]
+for l in range(len(lines)):
+    line = lines[l].split(":")[1].strip()
+    winning_cards, your_cards = line.split("|")
+    winning_cards = winning_cards.strip().split(' ')
+    your_cards = your_cards.strip().split(' ')
+    winning_count = 0
+    for c in your_cards:
+        if c != '':
+            if c in winning_cards:
+                winning_count+=1
+    for _ in range(1,winning_count+1):
+        copies[l+_]+=(1*copies[l])
+print(sum(copies))
