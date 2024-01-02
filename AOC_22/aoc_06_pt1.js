@@ -12,12 +12,12 @@ const hash = readFileLines('input_06.txt')[0];
 let cont = true
 let i =0;
 while (cont){
-  let new_sub = hash.substring(i,i+14);
+  let new_sub = hash.substring(i,i+4);
   console.log(new_sub);
   let new_set = new Set(new_sub);
-  if (new_set.size == 14){
+  if (new_set.size == 4){
     cont = false;
-    console.log(i+14);
+    console.log(i+4);
     console.log(new_set);
   }
   i++
