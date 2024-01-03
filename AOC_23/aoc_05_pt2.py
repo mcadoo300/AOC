@@ -13,7 +13,7 @@ def Split_Intersection(range1,source):
     else:
         new_range = [lower,upper]
         if new_range == range1:
-            return [new_range], [[source[2][0],lower-1],[upper+1,source[1]]]
+            return [new_range], [[source[0],lower-1],[upper+1,source[1]]]
         elif new_range == source:
             return [new_range], None
         else:
@@ -27,12 +27,23 @@ def Split_Intersection(range1,source):
                 source[1] = lower-1
             return [new_range], [source]
 
+
+def Unionize(list1):
+    lower_bounds = [[x[0],0] for x in list1]
+    for lb in lower_bounds:
+        for x in list1:
+            if x[0] == lb[0]:
+                lb[1] = max(x[1],lb[1])
+    return lower_bounds
+
+
+
+
 seeds = lines[0].strip()
 seeds = seeds.split(":")[1]
 seeds = seeds.split(' ')
 while '' in seeds:
     seeds.remove('')
-print(seeds)
 ranges = []
 for i in range(0,len(seeds)-1,2):
     ranges.append([int(seeds[i]),int(seeds[i])+int(seeds[i+1])-1])
@@ -43,27 +54,30 @@ for line in lines[2:]:
     if len(line) != 0:
         if line in new_section:
             for rng in new_ranges:
-                ranges.append(rng)
+                if rng not in ranges:
+                    ranges.append(rng)
             new_ranges = []
+            ranges = Unionize(ranges)
         else:
             line = line.split(' ')
+            new_base = int(line[0].strip())
             lower = int(line[1])
             upper = int(int(line[1]) + int(line[2]) - 1)
             num_ranges = len(ranges)
             for k in range(num_ranges):
+                
                 num_set = ranges.pop(0)
-                print(lower)
-                print(upper)
-                print(num_set)
+                base = lower
                 new_set , num_set = Split_Intersection([lower,upper], num_set)
-                print(num_set)
-                print(new_set)
                 if new_set is not None:
                     for nset in new_set:
-                        new_ranges.append(nset)
+                        nset[0] = (nset[0]-base) + new_base
+                        nset[1] = (nset[1] - base) + new_base
+                        if nset not in new_ranges:
+                            new_ranges.append(nset)
                 if num_set is not None:    
                     for st in num_set:
-                        ranges.append(st)
-
-print(new_ranges)
-print(ranges)
+                        if st not in ranges:
+                            ranges.append(st)
+print(min(new_ranges,key=lambda x: x[0]))
+print(min(ranges,key=lambda x: x[0]))

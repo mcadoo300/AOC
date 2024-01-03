@@ -1,5 +1,6 @@
 import copy
-input_file = open('input_8.txt','r')
+from  math import lcm
+input_file = open('input_08.txt','r')
 lines = input_file.readlines()
 
 left_right = lines.pop(0).strip()
@@ -43,12 +44,5 @@ print(trip_counter)
 max_steps = max(trip_counter,key= lambda x: x[1])[1]
 print(max_steps)
 not_done = True
-while not_done:
-    for num in [x[1] for x in trip_counter]:
-        if (max_steps/num) == int(max_steps/num):
-            not_done = False
-        else:
-            not_done = True
-            break
-    max_steps+=1
-print(max_steps)
+#[x[1] for x in trip_counter]
+print(lcm(5,4))

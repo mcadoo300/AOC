@@ -1,5 +1,5 @@
 import math
-input_file = open('input_7.txt','r')
+input_file = open('input_07.txt','r')
 lines = input_file.readlines()
 
 cards = ['A','K','Q','T', '9', '8','7','6','5','4','3','2', 'J']
