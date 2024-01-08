@@ -1,5 +1,5 @@
 import copy
-input_file = open('input_9.txt','r')
+input_file = open('input_09.txt','r')
 lines = input_file.readlines()
 ans = 0
 for i in range(len(lines)):
